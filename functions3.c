@@ -26,7 +26,7 @@ void is_mod(sstack_t **head, unsigned int number)
 	}
 }
 /**
- * is_mul - adds the top two elements of the stack
+ * is_pchar - adds the top two elements of the stack
  * @head: pointer to top
  * @number: integer
  */
