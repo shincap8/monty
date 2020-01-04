@@ -63,7 +63,7 @@ void is_pstr(sstack_t **head, unsigned int number)
 	if (head == NULL || *head == NULL)
 		printf("\n");
 	aux = *head;
-	while(aux)
+	while (aux)
 	{
 		if (aux->n == 0 || aux->n < 0 || aux->n > 255)
 			break;

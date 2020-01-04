@@ -49,7 +49,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 	char buffer[1024], *line;
 
 	numbers[0] = 0;
-	line = malloc(1024);
+	line = malloc(1024 * sizeof(char));
 	if (line == NULL)
 		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
 	fd = open(file, O_RDONLY, 0600);
@@ -68,6 +68,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 			if (buffer[i] == '\n')
 			{
 				numbers[0] = numbers[0] + 1;
+				line[j] = '\0';
 				search_in_opd(line, opd, head), j = 0;
 				free(line);
 				line = malloc(1024);
@@ -93,7 +94,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 	int i = 0, t = 0, j = 0;
 	unsigned int x = 0;
 
-	while (j < 18)
+	while (j < 15)
 	{
 		i = 0, t = 0;
 		while (line[i] != ' ' && line[i])
