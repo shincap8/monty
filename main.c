@@ -1,4 +1,4 @@
-#include "library.h"
+#include "monty.h"
 /**
 * main- Entry point
 * @argc: argc
@@ -23,9 +23,7 @@ int main(int argc, char *argv[])
 		{"pchar", is_pchar},
 		{"pstr", is_pstr},
 		{"rotl", is_rotl},
-		{"rotr", is_rotr},
-		{"stack", is_stack},
-		{"queue", is_queue}
+		{"rotr", is_rotr}
 	};
 
 	head = NULL;

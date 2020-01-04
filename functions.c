@@ -1,4 +1,4 @@
-#include "library.h"
+#include "monty.h"
 /**
  * is_push- function that pushes an element to the stack
  * @head: pointer to top of stack
@@ -30,23 +30,10 @@ void is_pall(sstack_t **head, unsigned int number)
 	number = number;
 	if (head == NULL || *head == NULL)
 		exit(EXIT_FAILURE);
-	if (numbers[1] == 0)
+	while (tmp)
 	{
-		while (tmp)
-		{
-			printf("%d\n", tmp->n);
-			tmp = tmp->next;
-		}
-	}
-	else
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		while (tmp)
-		{
-			printf("%d\n", tmp->n);
-			tmp = tmp->prev;
-		}
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
 	}
 }
 /**
@@ -79,33 +66,15 @@ void is_pop(sstack_t **head, unsigned int number)
 		fprintf(stderr, "L%d: can't pop an empty stack\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
-	if (numbers[1] == 0)
+	if ((*head)->next != NULL)
 	{
-		if ((*head)->next != NULL)
-		{
-			aux = (*head)->next;
-			free(*head);
-			aux->prev = NULL;
-			*head = aux;
-		}
-		else
-			free(*head), *head = NULL;
+		aux = (*head)->next;
+		free(*head);
+		aux->prev = NULL;
+		*head = aux;
 	}
 	else
-	{
-		while ((*head)->next)
-			*head = (*head)->next;
-
-		if ((*head)->prev != NULL)
-		{
-			aux = (*head)->prev;
-			free(*head);
-			aux->next = NULL;
-			*head = aux;
-		}
-		else
-			free(*head), *head = NULL;
-	}
+		free(*head), *head = NULL;
 }
 /**
  * is_swap- function that swaps the top two elements

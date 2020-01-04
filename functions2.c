@@ -1,4 +1,4 @@
-#include "library.h"
+#include "monty.h"
 /**
  * is_add- adds the top two elements of the stack
  * @head: pointer to top
@@ -10,40 +10,19 @@ void is_add(sstack_t **head, unsigned int number)
 	int x = 0;
 
 	number = number;
-	if (numbers[1] == 0)
+	if ((*head)->next != NULL)
 	{
-		if ((*head)->next != NULL)
-		{
-			x = (*head)->next->n + (*head)->n;
-			aux = (*head)->next;
-			aux->n = x;
-			free(*head);
-			aux->prev = NULL;
-			*head = aux;
-		}
-		else
-		{
-			fprintf(stderr, "L%d: can't add, stack too short\n", numbers[0]);
-			exit(EXIT_FAILURE);
-		}
+		x = (*head)->next->n + (*head)->n;
+		aux = (*head)->next;
+		aux->n = x;
+		free(*head);
+		aux->prev = NULL;
+		*head = aux;
 	}
 	else
 	{
-		while ((*head)->next)
-			*head = (*head)->next;
-		if ((*head)->prev != NULL)
-		{
-			x = (*head)->prev->n + (*head)->n;
-			aux = (*head)->prev;
-			free(*head);
-			aux->next = NULL;
-			*head = aux;
-		}
-		else
-		{
-			fprintf(stderr, "L%d: can't add, stack too short\n", numbers[0]);
-			exit(EXIT_FAILURE);
-		}
+		fprintf(stderr, "L%d: can't add, stack too short\n", numbers[0]);
+		exit(EXIT_FAILURE);
 	}
 }
 /**

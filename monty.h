@@ -1,5 +1,5 @@
-#ifndef LIBRARY_H
-#define LIBRARY_H
+#ifndef MONTY_H
+#define MONTY_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -58,6 +58,4 @@ void is_pchar(sstack_t **head, unsigned int);
 void is_pstr(sstack_t **head, unsigned int);
 void is_rotl(sstack_t **head, unsigned int);
 void is_rotr(sstack_t **head, unsigned int);
-void is_stack(sstack_t **head, unsigned int number);
-void is_queue(sstack_t **head, unsigned int number);
 #endif
