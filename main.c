@@ -115,8 +115,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		{
 			if (j == 0)
 				x = get_int(new);
-			free(line);
-			opd[j].f(head, x);
+			free(line), opd[j].f(head, x);
 			break;
 		}
 		j++;
@@ -128,7 +127,6 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 			i++;
 		line[i] = '\0';
 		fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], line);
-		free(line);
-		exit(EXIT_FAILURE);
+		free(line), exit(EXIT_FAILURE);
 	}
 }
