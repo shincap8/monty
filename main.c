@@ -7,7 +7,7 @@
 */
 int main(int argc, char *argv[])
 {
-	sstack_t *head;
+	sstack_t *head = NULL;
 	instruction_t opd[] = {
 		{"push", is_push},
 		{"pall", is_pall},
@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
 		{"rotr", is_rotr}
 	};
 
-	head = NULL;
 	if (argc > 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -46,8 +45,8 @@ int main(int argc, char *argv[])
 */
 void read_filex(char *file, instruction_t *opd, sstack_t **head)
 {
-	int fd, reader = 1024, i = 0, j = 0, closer = 0;
-	char buffer[1024], *line;
+	int fd = 0, reader = 1024, i = 0, j = 0, closer = 0;
+	char buffer[1024], *line = NULL;
 
 	numbers[0] = 0;
 	line = malloc(1024 * sizeof(char));
@@ -55,12 +54,15 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
 	fd = open(file, O_RDONLY, 0600);
 	if (fd == -1)
+	{
+		free(line);
 		fprintf(stderr, "Error: Can't open file %s\n", file), exit(EXIT_FAILURE);
+	}
 	while (reader == 1024)
 	{
 		reader = read(fd, buffer, 1024);
 		if (reader == -1)
-			exit(EXIT_FAILURE);
+			free(line), exit(EXIT_FAILURE);
 		while (buffer[i])
 		{
 			if (buffer[i] == '\n')
@@ -92,7 +94,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 {
 	int i = 0, t = 0, j = 0;
 	unsigned int x = 0;
-	char *new;
+	char *new = NULL;
 
 	new = extreme(line);
 	while (j < 15)
