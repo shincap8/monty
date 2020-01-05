@@ -10,7 +10,10 @@ void is_push(sstack_t **head, unsigned int number)
 
 	new = malloc(sizeof(sstack_t));
 	if (new == NULL)
+	{
+		free_dlistint(*head);
 		exit(EXIT_FAILURE);
+	}
 	new->n = number;
 	new->next = *head;
 	new->prev = NULL;
@@ -63,6 +66,7 @@ void is_pop(sstack_t **head, unsigned int number)
 	number = number;
 	if (*head == NULL || head == NULL)
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't pop an empty stack\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
@@ -94,6 +98,7 @@ void is_swap(sstack_t **head, unsigned int number)
 	}
 	else
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't swap, stack too short\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
