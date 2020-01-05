@@ -118,6 +118,10 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 	}
 	if (i != t)
 	{
+		i = 0;
+		while (line[i] != ' ')
+			i++;
+		line[i] = '\0';
 		fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], line);
 		exit(EXIT_FAILURE);
 	}

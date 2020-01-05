@@ -45,7 +45,25 @@ int get_int(char *buffer)
 		}
 		t = 0, i++;
 	}
-	free(buffer);
-	fprintf(stderr, "L%d: usage: push integer\n", numbers[0]);
+	free(buffer), fprintf(stderr, "L%d: usage: push integer\n", numbers[0]);
 	exit(EXIT_FAILURE);
+}
+/**
+* extreme- this function get the integer in the line
+* @buffer: path of the file to read
+*
+* Return: The number Always 0 (Success)
+*/
+void extreme(char *buffer)
+{
+	int i = 0;
+
+	while (buffer)
+	{
+		if (buffer[i] == '\n' || buffer[i] == '\t' || buffer[i] == ' ')
+			i++;
+		if (buffer[i] != '\n' || buffer[i] != '\t' || buffer[i] != ' ')
+			break;
+	}
+	buffer = buffer + i;
 }
