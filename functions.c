@@ -6,7 +6,7 @@
  */
 void is_push(sstack_t **head, unsigned int number)
 {
-	sstack_t *new;
+	sstack_t *new = NULL;
 
 	new = malloc(sizeof(sstack_t));
 	if (new == NULL)

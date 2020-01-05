@@ -80,7 +80,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 	closer = close(fd);
 	free(line);
 	if (closer == -1)
-		exit(EXIT_FAILURE);
+		free(line), exit(EXIT_FAILURE);
 }
 /**
 * search_in_opd- this function searches in the opd

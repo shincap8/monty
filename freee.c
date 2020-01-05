@@ -9,6 +9,8 @@ void free_dlistint(sstack_t *head)
 {
 	sstack_t *aux = head;
 
+	while (aux->prev != NULL)
+		aux = aux->prev;
 	while (aux)
 	{
 		free(head);
