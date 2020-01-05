@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	read_filex(argv[1], opd, &head);
+	free_dlistint(head);
 	return (0);
 }
 /**
@@ -70,7 +71,6 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 				numbers[0] = numbers[0] + 1;
 				line[j] = '\0';
 				search_in_opd(line, opd, head), j = 0;
-				free(line);
 				line = malloc(1024);
 				i++;
 			}
@@ -78,6 +78,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 		}
 	}
 	closer = close(fd);
+	free(line);
 	if (closer == -1)
 		exit(EXIT_FAILURE);
 }
@@ -109,6 +110,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		{
 			if (j == 0)
 				x = get_int(line);
+			free(line);
 			opd[j].f(head, x);
 			break;
 		}
