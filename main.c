@@ -74,7 +74,8 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 				line = malloc(1024);
 				i++;
 			}
-			line[j] = buffer[i], i++, j++;
+			else
+				line[j] = buffer[i], i++, j++;
 		}
 	}
 	closer = close(fd);
@@ -94,22 +95,29 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 {
 	int i = 0, t = 0, j = 0;
 	unsigned int x = 0;
+	char *new;
 
+	new = extreme(line);
 	while (j < 15)
 	{
 		i = 0, t = 0;
-		while (line[i] != ' ' && line[i])
+		while (new[i] != ' ' && new[i] != '\0')
 		{
-			if (line[i] == opd[j].opcode[i])
+			if (new[i] == opd[j].opcode[i])
 				t++;
 			i++;
 		}
 		if (opd[j].opcode[i] != '\0')
 			t = 0;
+		if (new[0] == '\0')
+		{
+			free(line);
+			break;
+		}
 		if (i == t)
 		{
 			if (j == 0)
-				x = get_int(line);
+				x = get_int(new);
 			free(line);
 			opd[j].f(head, x);
 			break;

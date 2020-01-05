@@ -59,5 +59,5 @@ void is_pstr(sstack_t **head, unsigned int);
 void is_rotl(sstack_t **head, unsigned int);
 void is_rotr(sstack_t **head, unsigned int);
 void free_dlistint(sstack_t *head);
-void extreme(char *);
+char *extreme(char *);
 #endif

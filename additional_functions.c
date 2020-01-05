@@ -13,7 +13,7 @@ int get_int(char *buffer)
 	{
 		if (buffer[i] == ' ')
 		{
-			while (buffer[i] == ' ')
+			while (buffer[i] == ' ' || buffer[i] == '\t')
 				i++;
 			j = i;
 			if ((buffer[i] < 48 || buffer[i] > 57) && buffer[i] != 45)
@@ -23,7 +23,7 @@ int get_int(char *buffer)
 			}
 			if (buffer[i] == '-')
 				i++;
-			while (buffer[i] != ' ' && buffer[i])
+			while (buffer[i] != ' ' && buffer[i] && buffer[i] != '\t')
 			{
 				if (buffer[i] >= 48 && buffer[i] <= 57)
 					i = i;
@@ -54,16 +54,9 @@ int get_int(char *buffer)
 *
 * Return: The number Always 0 (Success)
 */
-void extreme(char *buffer)
+char *extreme(char *buffer)
 {
-	int i = 0;
-
-	while (buffer)
-	{
-		if (buffer[i] == '\n' || buffer[i] == '\t' || buffer[i] == ' ')
-			i++;
-		if (buffer[i] != '\n' || buffer[i] != '\t' || buffer[i] != ' ')
-			break;
-	}
-	buffer = buffer + i;
+	while (buffer[0] == ' ' || buffer[0] == '\t')
+		buffer++;
+	return (buffer);
 }
