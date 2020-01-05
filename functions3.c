@@ -21,6 +21,7 @@ void is_mod(sstack_t **head, unsigned int number)
 	}
 	else
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't mod, stack too short\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
@@ -37,6 +38,7 @@ void is_pchar(sstack_t **head, unsigned int number)
 	number = number;
 	if ((*head)->n < 0 || (*head)->n > 255)
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}

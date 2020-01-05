@@ -45,6 +45,7 @@ int get_int(char *buffer)
 		}
 		t = 0, i++;
 	}
+	free(buffer);
 	fprintf(stderr, "L%d: usage: push integer\n", numbers[0]);
 	exit(EXIT_FAILURE);
 }

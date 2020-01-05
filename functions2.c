@@ -21,6 +21,7 @@ void is_add(sstack_t **head, unsigned int number)
 	}
 	else
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't add, stack too short\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
@@ -57,6 +58,7 @@ void is_sub(sstack_t **head, unsigned int number)
 	}
 	else
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't sub, stack too short\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
@@ -74,6 +76,7 @@ void is_div(sstack_t **head, unsigned int number)
 	number = number;
 	if ((*head)->n == 0)
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: division by zero\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
@@ -88,6 +91,7 @@ void is_div(sstack_t **head, unsigned int number)
 	}
 	else
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't div, stack too short\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
@@ -114,6 +118,7 @@ void is_mul(sstack_t **head, unsigned int number)
 	}
 	else
 	{
+		free_dlistint(*head);
 		fprintf(stderr, "L%d: can't mul, stack too short\n", numbers[0]);
 		exit(EXIT_FAILURE);
 	}
