@@ -12,6 +12,7 @@ void is_push(sstack_t **head, unsigned int number)
 	if (new == NULL)
 	{
 		free_dlistint(*head);
+		fprint(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 	new->n = number;

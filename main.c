@@ -60,10 +60,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 	{
 		reader = read(fd, buffer, 1024);
 		if (reader == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file\n");
-			exit(98);
-		}
+			exit(EXIT_FAILURE);
 		while (buffer[i])
 		{
 			if (buffer[i] == '\n')
@@ -131,6 +128,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 			i++;
 		line[i] = '\0';
 		fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], line);
+		free(line);
 		exit(EXIT_FAILURE);
 	}
 }
