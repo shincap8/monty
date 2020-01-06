@@ -46,11 +46,11 @@ int main(int argc, char *argv[])
 */
 void read_filex(char *file, instruction_t *opd, sstack_t **head)
 {
-	int fd = 0, reader = 5000, i = 0, j = 0, closer = 0;
-	char buffer[5000], *line = NULL;
+	int fd = 0, reader = 1024, i = 0, j = 0, closer = 0;
+	char buffer[1024], *line = NULL;
 
 	numbers[0] = 0;
-	line = malloc(5000 * sizeof(char));
+	line = malloc(1024 * sizeof(char));
 	if (line == NULL)
 		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
 	fd = open(file, O_RDONLY, 0600);
@@ -59,9 +59,9 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 		free(line);
 		fprintf(stderr, "Error: Can't open file %s\n", file), exit(EXIT_FAILURE);
 	}
-	while (reader == 5000)
+	while (reader == 1024)
 	{
-		reader = read(fd, buffer, 5000);
+		reader = read(fd, buffer, 1024);
 		if (reader == -1)
 			free(line), exit(EXIT_FAILURE);
 		while (buffer[i] != '\0')
@@ -71,7 +71,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 				numbers[0] = numbers[0] + 1;
 				line[j] = '\0';
 				search_in_opd(line, opd, head), j = 0;
-				line = malloc(5000);
+				line = malloc(1024);
 				i++;
 			}
 			else
