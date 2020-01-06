@@ -71,7 +71,6 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 				numbers[0] = numbers[0] + 1;
 				line[j] = '\0';
 				search_in_opd(line, opd, head), j = 0;
-				free(line);
 				line = malloc(1024);
 				if (line == NULL)
 					fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
@@ -121,7 +120,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		{
 			if (j == 0)
 				x = get_int(new);
-			opd[j].f(head, x);
+			free(line), opd[j].f(head, x);
 			break;
 		}
 		j++;
