@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	read_filex(argv[1], opd, &head);
-	free_dlistint(head);
+	if (head != NULL)
+		free_dlistint(head);
 	return (0);
 }
 /**
@@ -45,11 +46,11 @@ int main(int argc, char *argv[])
 */
 void read_filex(char *file, instruction_t *opd, sstack_t **head)
 {
-	int fd = 0, reader = 1024, i = 0, j = 0, closer = 0;
-	char buffer[1024], *line = NULL;
+	int fd = 0, reader = 5000, i = 0, j = 0, closer = 0;
+	char buffer[5000], *line = NULL;
 
 	numbers[0] = 0;
-	line = malloc(1024 * sizeof(char));
+	line = malloc(5000 * sizeof(char));
 	if (line == NULL)
 		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
 	fd = open(file, O_RDONLY, 0600);
@@ -58,19 +59,19 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 		free(line);
 		fprintf(stderr, "Error: Can't open file %s\n", file), exit(EXIT_FAILURE);
 	}
-	while (reader == 1024)
+	while (reader == 5000)
 	{
-		reader = read(fd, buffer, 1024);
+		reader = read(fd, buffer, 5000);
 		if (reader == -1)
 			free(line), exit(EXIT_FAILURE);
-		while (buffer[i])
+		while (buffer[i] != '\0')
 		{
 			if (buffer[i] == '\n')
 			{
 				numbers[0] = numbers[0] + 1;
 				line[j] = '\0';
 				search_in_opd(line, opd, head), j = 0;
-				line = malloc(1024);
+				line = malloc(5000);
 				i++;
 			}
 			else
