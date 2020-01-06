@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 		{"rotr", is_rotr}
 	};
 
-	if (argc > 2)
+	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
@@ -72,6 +72,8 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 				line[j] = '\0';
 				search_in_opd(line, opd, head), j = 0;
 				line = malloc(1024);
+				if (line == NULL)
+					fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
 				i++;
 			}
 			else
