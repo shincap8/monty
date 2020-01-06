@@ -60,4 +60,5 @@ void is_rotl(sstack_t **head, unsigned int);
 void is_rotr(sstack_t **head, unsigned int);
 void free_dlistint(sstack_t *head);
 char *extreme(char *);
+void el_error404_not_fount(int, char *, char*);
 #endif

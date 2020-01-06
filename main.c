@@ -95,7 +95,7 @@ void read_filex(char *file, instruction_t *opd, sstack_t **head)
 */
 void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 {
-	int i = 0, t = 0, j = 0;
+	int i = 0, t = 0, j = 0, b = 0;
 	unsigned int x = 0;
 	char *new = NULL;
 
@@ -103,7 +103,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 	while (j < 15)
 	{
 		i = 0, t = 0;
-		while (new[i] != ' ' && new[i] != '\0')
+		while (new[i] != ' ' && new[i] != '\0' && opd[j].opcode[i != '\0'])
 		{
 			if (new[i] == opd[j].opcode[i])
 				t++;
@@ -111,6 +111,9 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		}
 		if (opd[j].opcode[i] != '\0')
 			t = 0;
+		b = strlen(opd[j].opcode);
+		if (i > b)
+			break;
 		if (new[0] == '\0')
 		{
 			free(line);
@@ -123,15 +126,27 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 			free(line), opd[j].f(head, x);
 			break;
 		}
-		j++;
+		 j++;
 	}
 	if (i != t)
 	{
-		i = 0;
-		while (line[i] != ' ')
-			i++;
-		line[i] = '\0';
-		fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], line);
-		free(line), exit(EXIT_FAILURE);
+		el_error404_not_fount(i, new, line);
 	}
+}
+/**
+* el_error404_not_fount- es una chimba
+* @i: integer
+* @new: ne with opd
+* @line: op code array
+*
+* Return: Always 0 (Success)
+*/
+void el_error404_not_fount(int i, char *new, char *line)
+{
+	i = 0;
+	while (new[i] != ' ' && new[i] != '\0')
+		i++;
+	new[i] = '\0';
+	fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], new);
+	free(line), exit(EXIT_FAILURE);
 }
