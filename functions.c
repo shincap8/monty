@@ -32,8 +32,6 @@ void is_pall(sstack_t **head, unsigned int number)
 	sstack_t *tmp = *head;
 
 	number = number;
-	if (head == NULL || *head == NULL)
-		exit(EXIT_FAILURE);
 	while (tmp)
 	{
 		printf("%d\n", tmp->n);
