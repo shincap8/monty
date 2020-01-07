@@ -46,29 +46,44 @@ int main(int argc, char *argv[])
 */
 void read_filex(char *file, instruction_t *opd, sstack_t **head)
 {
-	int i = 0;
-	char *line = NULL;
-	size_t line_size = 0;
-	FILE *fd;
+	int fd = 0, reader = 1024, i = 0, j = 0, closer = 0;
+	char buffer[1024], *line = NULL;
 
 	numbers[0] = 0;
-	fd = fopen(file, "r");
-	if (!fd)
+	line = malloc(1024 * sizeof(char));
+	if (line == NULL)
+		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
+	fd = open(file, O_RDONLY, 0600);
+	if (fd == -1)
 	{
+		free(line);
 		fprintf(stderr, "Error: Can't open file %s\n", file), exit(EXIT_FAILURE);
 	}
-	while (getline(&line, &line_size, fd))
+	while (reader == 1024)
 	{
-		i = 0;
-		while (line[i] != '\n')
-			i++;
-		numbers[0] = numbers[0] + 1;
-		line[i] = '\0';
-		search_in_opd(line, opd, head);
-		line = NULL;
+		reader = read(fd, buffer, 1024);
+		if (reader == -1)
+			free(line), exit(EXIT_FAILURE);
+		while (buffer[i] != '\0')
+		{
+			if (buffer[i] == '\n')
+			{
+				numbers[0] = numbers[0] + 1;
+				line[j] = '\0';
+				search_in_opd(line, opd, head), j = 0;
+				line = malloc(1024);
+				if (line == NULL)
+					fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
+				i++;
+			}
+			else
+				line[j] = buffer[i], i++, j++;
+		}
 	}
-	printf("final\n");
-	fclose(fd);
+	closer = close(fd);
+	free(line);
+	if (closer == -1)
+		free(line), exit(EXIT_FAILURE);
 }
 /**
 * search_in_opd- this function searches in the opd
@@ -100,8 +115,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		if (i > b)
 			break;
 		if (new[0] == '\0')
-		{
-			printf("acá?\n");
+		{		
 			free(line);
 			break;
 		}
