@@ -115,7 +115,7 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		if (i > b)
 			break;
 		if (new[0] == '\0')
-		{		
+		{
 			free(line);
 			break;
 		}
