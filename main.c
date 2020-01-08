@@ -46,44 +46,26 @@ int main(int argc, char *argv[])
 */
 void read_filex(char *file, instruction_t *opd, sstack_t **head)
 {
-	int fd = 0, reader = 1024, i = 0, j = 0, closer = 0;
-	char buffer[1024], *line = NULL;
+	int i;
+	char *line = NULL;
+	size_t line_size = 0;
+	FILE *fd;
 
 	numbers[0] = 0;
-	line = malloc(1024 * sizeof(char));
-	if (line == NULL)
-		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
-	fd = open(file, O_RDONLY, 0600);
-	if (fd == -1)
-	{
-		free(line);
+	fd = fopen(file, "r");
+	if (!fd)
 		fprintf(stderr, "Error: Can't open file %s\n", file), exit(EXIT_FAILURE);
-	}
-	while (reader == 1024)
+	while (getline(&line, &line_size, fd) >= 0)
 	{
-		reader = read(fd, buffer, 1024);
-		if (reader == -1)
-			free(line), exit(EXIT_FAILURE);
-		while (buffer[i] != '\0')
-		{
-			if (buffer[i] == '\n')
-			{
-				numbers[0] = numbers[0] + 1;
-				line[j] = '\0';
-				search_in_opd(line, opd, head), j = 0;
-				line = malloc(1024);
-				if (line == NULL)
-					fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
-				i++;
-			}
-			else
-				line[j] = buffer[i], i++, j++;
-		}
+		i = 0;
+		while (line[i] != '\n')
+			i++;
+		numbers[0] = numbers[0] + 1;
+		line[i] = '\0';
+		search_in_opd(line, opd, head);
 	}
-	closer = close(fd);
 	free(line);
-	if (closer == -1)
-		free(line), exit(EXIT_FAILURE);
+	fclose(fd);
 }
 /**
 * search_in_opd- this function searches in the opd
@@ -115,15 +97,12 @@ void search_in_opd(char *line, instruction_t *opd, sstack_t **head)
 		if (i > b)
 			break;
 		if (new[0] == '\0')
-		{
-			free(line);
 			break;
-		}
 		if (i == t)
 		{
 			if (j == 0)
 				x = get_int(new);
-			free(line), opd[j].f(head, x);
+			opd[j].f(head, x);
 			break;
 		}
 		 j++;
@@ -147,6 +126,7 @@ void el_error404_not_fount(int i, char *new, char *line)
 	while (new[i] != ' ' && new[i] != '\0')
 		i++;
 	new[i] = '\0';
+	free(line);
 	fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], new);
-	free(line), exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
