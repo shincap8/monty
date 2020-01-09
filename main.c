@@ -126,7 +126,7 @@ void el_error404_not_fount(int i, char *new, char *line)
 	while (new[i] != ' ' && new[i] != '\0')
 		i++;
 	new[i] = '\0';
-	free(line);
 	fprintf(stderr, "L%d: unknown instruction %s\n", numbers[0], new);
+	free(line);
 	exit(EXIT_FAILURE);
 }
